@@ -1,6 +1,5 @@
 package com.example.pixelplanner.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -11,44 +10,82 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+import androidx.compose.material3.lightColorScheme
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.ui.graphics.Color
+
+
+// Light Color Scheme
+val LightColorScheme = lightColorScheme(
+    primary = SoftTaupe,
+    onPrimary = OnSoftTaupe,
+    primaryContainer = BlushPink,
+    onPrimaryContainer = OnBlushPink,
+    inversePrimary = WarmTerracotta,
+
+    secondary = WarmTerracotta,
+    onSecondary = OnWarmTerracotta,
+    secondaryContainer = BlushPink,
+    onSecondaryContainer = OnBlushPink,
+
+    tertiary = SoftIvory,
+    onTertiary = OnSoftIvory,
+    tertiaryContainer = DelicateWhite,
+    onTertiaryContainer = OnDelicateWhite,
+
+    background = DelicateWhite,
+    onBackground = OnDelicateWhite,
+    surface = SoftIvory,
+    onSurface = OnSoftIvory,
+
+    surfaceVariant = CreamBeige,
+    onSurfaceVariant = OnCreamBeige,
+
+    error = ErrorRed,
+    onError = OnError,
+    errorContainer = ErrorContainer,
+    onErrorContainer = OnErrorContainer
 )
 
-private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
+// Dark Color Scheme
+val DarkColorScheme = darkColorScheme(
+    primary = SoftTaupe,
+    onPrimary = OnSoftTaupe,
+    primaryContainer = BlushPink,
+    onPrimaryContainer = OnBlushPink,
+    inversePrimary = WarmTerracotta,
 
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    secondary = WarmTerracotta,
+    onSecondary = OnWarmTerracotta,
+    secondaryContainer = CreamBeige,
+    onSecondaryContainer = OnCreamBeige,
+
+    tertiary = SoftIvory,
+    onTertiary = OnSoftIvory,
+    tertiaryContainer = DelicateWhite,
+    onTertiaryContainer = OnDelicateWhite,
+
+    background = DelicateWhite,
+    onBackground = OnDelicateWhite,
+    surface = SoftIvory,
+    onSurface = OnSoftIvory,
+
+    surfaceVariant = CreamBeige,
+    onSurfaceVariant = OnCreamBeige,
+
+    error = ErrorRed,
+    onError = OnError,
+    errorContainer = ErrorContainer,
+    onErrorContainer = OnErrorContainer
 )
+
 
 @Composable
 fun PixelPlannerTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
-
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
-    }
+    val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
 
     MaterialTheme(
         colorScheme = colorScheme,

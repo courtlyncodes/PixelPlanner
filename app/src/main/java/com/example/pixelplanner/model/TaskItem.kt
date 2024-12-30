@@ -1,6 +1,6 @@
 package com.example.pixelplanner.model
 
-data class ToDoItem (
+data class TaskItem (
     val id: Int,
     val title: String,
     val description: String,

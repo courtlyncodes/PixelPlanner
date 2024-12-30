@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">PixelPlanner</string>
+    <string name="add_new_note">Add new note.</string>
+    <string name="task_details">Task Details</string>
+    <string name="save">Save</string>
+    <string name="task_title">Task Title</string>
+    <string name="task_description">Task Description</string>
 </resources>
