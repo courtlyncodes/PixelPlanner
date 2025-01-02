@@ -6,7 +6,8 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.example.pixelplanner.model.TaskItem
+import androidx.room.Upsert
+import com.example.pixelplanner.model.Task
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -17,7 +18,7 @@ interface TaskDao {
      *  @return all tasks in the database.
      */
     @Query("SELECT * FROM tasks")
-    fun observeAllTasks(): Flow<List<TaskItem>>
+    fun observeAllTasks(): Flow<List<Task>>
 
     /**
      *  Selects a single task.
@@ -26,27 +27,19 @@ interface TaskDao {
      *  @return the task with the given id.
      */
     @Query("SELECT * FROM tasks WHERE id = :id")
-    fun getById(id: Long): Flow<TaskItem?>
+    fun getTask(id: Long): Flow<Task?>
 
     /**
-     *  Adds a task to the database.
+     *  Inserts or updates a task in the database. If a task with the same id already exists, replace it.
      *
-     *  @param task the task to add.
+     *  @param task the task to insert or update.
      */
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun addTask(task: TaskItem)
-
-    /**
-     *  Updates a task in the database.
-     *
-     *  @param task the task to update.
-     */
-    @Update
-    suspend fun updateTask(task: TaskItem)
+    @Upsert
+    suspend fun upsertTask(task: Task)
 
     /**
      * Deletes a task from the database.
      */
     @Delete
-    suspend fun deleteById(task: TaskItem)
+    suspend fun deleteById(task: Task)
 }

@@ -8,8 +8,6 @@ import androidx.compose.material3.adaptive.navigation.rememberListDetailPaneScaf
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.pixelplanner.model.TaskItem
 import com.example.pixelplanner.ui.taskdetail.TaskDetailCard
 import com.example.pixelplanner.ui.tasklist.TaskList
 import com.example.pixelplanner.ui.tasklist.TaskListViewModel
@@ -20,8 +18,8 @@ fun AppLayout(
     taskListViewModel: TaskListViewModel
 ) {
     val navigator = rememberListDetailPaneScaffoldNavigator<Nothing>()
-    val taskList = taskListViewModel.taskItems
-    val taskItem by taskListViewModel.selectedTaskItem.collectAsState()
+    val taskList = taskListViewModel.tasks
+    val taskItem by taskListViewModel.selectedTask.collectAsState()
 
     BackHandler(navigator.canNavigateBack()) {
         navigator.navigateBack()
@@ -31,11 +29,11 @@ fun AppLayout(
         value = navigator.scaffoldValue,
         listPane = {
             TaskList(
-                taskItems = taskList,
+                tasks = taskList,
                 onAddNewClick = { },
                 onItemClick = { navigator.navigateTo(ListDetailPaneScaffoldRole.Detail) }
             )
         },
-        detailPane = { taskItem?.let { TaskDetailCard(taskItem = it) } }
+        detailPane = { taskItem?.let { TaskDetailCard(task = it) } }
     )
 }

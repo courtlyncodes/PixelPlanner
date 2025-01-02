@@ -27,11 +27,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.pixelplanner.R
-import com.example.pixelplanner.model.TaskItem
+import com.example.pixelplanner.model.Task
 import com.example.pixelplanner.ui.theme.PixelPlannerTheme
 
 @Composable
-fun TaskList(taskItems: List<TaskItem>, onAddNewClick: () -> Unit, onItemClick: (TaskItem) -> Unit, modifier: Modifier = Modifier) {
+fun TaskList(tasks: List<Task>, onAddNewClick: () -> Unit, onItemClick: (Task) -> Unit, modifier: Modifier = Modifier) {
     Scaffold(
         topBar = {
             Text(text = "To-Do List")
@@ -49,7 +49,7 @@ fun TaskList(taskItems: List<TaskItem>, onAddNewClick: () -> Unit, onItemClick: 
         }
     ) {
         Column(modifier = modifier.padding(it).padding(16.dp)) {
-            taskItems.forEach { toDoItem ->
+            tasks.forEach { toDoItem ->
                 TaskCard(toDoItem, onItemClick = { onItemClick(toDoItem) })
             }
         }
@@ -57,9 +57,9 @@ fun TaskList(taskItems: List<TaskItem>, onAddNewClick: () -> Unit, onItemClick: 
 }
 
 @Composable
-fun TaskCard(taskItem: TaskItem, onItemClick: (TaskItem) -> Unit, modifier: Modifier = Modifier) {
+fun TaskCard(task: Task, onItemClick: (Task) -> Unit, modifier: Modifier = Modifier) {
     ElevatedCard(
-        modifier = modifier.clickable { onItemClick(taskItem) },
+        modifier = modifier.clickable { onItemClick(task) },
         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.surfaceVariant)
     ) {
         var checked by remember { mutableStateOf(false) }
@@ -69,8 +69,8 @@ fun TaskCard(taskItem: TaskItem, onItemClick: (TaskItem) -> Unit, modifier: Modi
                 Checkbox(checked = checked, onCheckedChange = { checked = it })
             }
             Column(modifier = Modifier.padding(16.dp)) {
-                Text(taskItem.title)
-                Text(taskItem.description)
+                Text(task.title)
+                Text(task.description)
             }
         }
     }
@@ -80,13 +80,13 @@ fun TaskCard(taskItem: TaskItem, onItemClick: (TaskItem) -> Unit, modifier: Modi
 @Composable
 fun ToDoListPreview() {
     PixelPlannerTheme {
-        val taskItem = TaskItem(1, "Title", "Description")
-        val taskItems = listOf(
-            TaskItem(1, "Title", "Description"),
-            TaskItem(2, "Title", "Description"),
-            TaskItem(3, "Title", "Description")
+        val task = Task(1, "Title", "Description")
+        val tasks = listOf(
+            Task(1, "Title", "Description"),
+            Task(2, "Title", "Description"),
+            Task(3, "Title", "Description")
         )
-        TaskList(taskItems, onAddNewClick = {}, onItemClick = {})
+        TaskList(tasks, onAddNewClick = {}, onItemClick = {})
     }
 }
 
@@ -94,7 +94,7 @@ fun ToDoListPreview() {
 @Composable
 fun ToDoItemCardPreview() {
     PixelPlannerTheme {
-        val taskItem = TaskItem(1, "Title", "Description")
-        TaskCard(taskItem, onItemClick = {})
+        val task = Task(1, "Title", "Description")
+        TaskCard(task, onItemClick = {})
     }
 }

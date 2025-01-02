@@ -17,10 +17,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.pixelplanner.model.TaskItem
+import com.example.pixelplanner.model.Task
 
 @Composable
-fun TaskDetailCard(taskItem: TaskItem, modifier: Modifier = Modifier) {
+fun TaskDetailCard(task: Task, modifier: Modifier = Modifier) {
     ElevatedCard(
         modifier = modifier,
         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.surfaceVariant)
@@ -31,8 +31,8 @@ fun TaskDetailCard(taskItem: TaskItem, modifier: Modifier = Modifier) {
                 Checkbox(checked = checked, onCheckedChange = { checked = it })
             }
             Column(modifier = Modifier.padding(16.dp)) {
-                Text(taskItem.title)
-                Text(taskItem.description)
+                Text(task.title)
+                Text(task.description)
             }
 //            Column(){
 //                Text(toDoItem.dueDate)
