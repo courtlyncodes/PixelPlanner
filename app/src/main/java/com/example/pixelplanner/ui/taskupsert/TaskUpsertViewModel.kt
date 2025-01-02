@@ -1,8 +1,10 @@
 package com.example.pixelplanner.ui.taskupsert
 
 import android.util.Log
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.pixelplanner.TaskUpsertDestination
 import com.example.pixelplanner.data.TaskRepository
 import com.example.pixelplanner.model.Task
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,16 +22,20 @@ data class TaskUpsertUiState(
     )
 )
 
-class TaskUpsertViewModel(private val taskRepository: TaskRepository) : ViewModel() {
+class TaskUpsertViewModel(
+    savedStateHandle: SavedStateHandle,
+    private val taskRepository: TaskRepository
+) : ViewModel() {
+
     private val _task = MutableStateFlow(TaskUpsertUiState())
     val task: StateFlow<TaskUpsertUiState> = _task.asStateFlow()
 
-    private val taskId: Long? = savedStateHandle[TaskUpsertDestination.taskIdArg]
+    private val taskId: Long? = savedStateHandle[TaskUpsertDestination.TASK_ID_ARG]
 
     // Initialize the ViewModel to get a note by its ID
     init {
         viewModelScope.launch {
-            taskRepository.getTaskStream(taskId)
+            taskRepository.getTaskStream(taskId!!)
                 .filterNotNull()
                 .collect { task ->
                     _task.value = TaskUpsertUiState(task)

@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.pixelplanner.model.Task
-import com.example.pixelplanner.ui.tasklist.TaskList
+import com.example.pixelplanner.ui.tasklist.TaskListPane
 import com.example.pixelplanner.ui.theme.PixelPlannerTheme
 
 class MainActivity : ComponentActivity() {
@@ -22,12 +22,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             PixelPlannerTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    TaskList(
-                        tasks = listOf(
-                            Task(1, "Title", "Description"),
-                            Task(2, "Title", "Description"),
-                            Task(3, "Title", "Description")
-                        ),
+                    TaskListPane(
+                        onAddNewClick = { },
+                        onItemClick = { },
                         modifier = Modifier.padding(innerPadding)
                     )
                 }

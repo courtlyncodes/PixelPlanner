@@ -17,6 +17,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -26,12 +27,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.pixelplanner.R
 import com.example.pixelplanner.model.Task
+import com.example.pixelplanner.ui.AppViewModelProvider
 import com.example.pixelplanner.ui.theme.PixelPlannerTheme
 
 @Composable
-fun TaskList(tasks: List<Task>, onAddNewClick: () -> Unit, onItemClick: (Task) -> Unit, modifier: Modifier = Modifier) {
+fun TaskListPane(
+    onAddNewClick: () -> Unit,
+    onItemClick: (Task) -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: TaskListViewModel = viewModel(factory = AppViewModelProvider.Factory)
+) {
+    val tasks = viewModel.taskList.collectAsState().value.tasks
     Scaffold(
         topBar = {
             Text(text = "To-Do List")
@@ -48,16 +57,22 @@ fun TaskList(tasks: List<Task>, onAddNewClick: () -> Unit, onItemClick: (Task) -
             }
         }
     ) {
-        Column(modifier = modifier.padding(it).padding(16.dp)) {
-            tasks.forEach { toDoItem ->
-                TaskCard(toDoItem, onItemClick = { onItemClick(toDoItem) })
+        Column(modifier = modifier
+            .padding(it)
+            .padding(16.dp)) {
+            tasks.forEach { task ->
+                TaskCard(task, onItemClick = { onItemClick(task) })
             }
         }
     }
 }
 
 @Composable
-fun TaskCard(task: Task, onItemClick: (Task) -> Unit, modifier: Modifier = Modifier) {
+fun TaskCard(
+    task: Task,
+    onItemClick: (Task) -> Unit,
+    modifier: Modifier = Modifier
+) {
     ElevatedCard(
         modifier = modifier.clickable { onItemClick(task) },
         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.surfaceVariant)
@@ -86,7 +101,7 @@ fun ToDoListPreview() {
             Task(2, "Title", "Description"),
             Task(3, "Title", "Description")
         )
-        TaskList(tasks, onAddNewClick = {}, onItemClick = {})
+        TaskListPane(onAddNewClick = {}, onItemClick = {})
     }
 }
 

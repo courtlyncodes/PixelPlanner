@@ -50,16 +50,15 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation(libs.androidx.adaptive)
-    implementation(libs.androidx.adaptive.layout)
-    implementation(libs.androidx.adaptive.navigation)
+
+    // Adaptive layouts dependencies
     implementation(libs.androidx.adaptive.navigation.android)
-    implementation(libs.androidx.adaptive.navigation.desktop)
-    implementation(libs.androidx.adaptive.navigation.jvmstubs)
-    implementation(libs.androidx.material3.adaptive.android)
+
 
     //Room
     implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.navigation.runtime.ktx)
+    implementation(libs.androidx.navigation.compose)
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
 

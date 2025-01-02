@@ -1,21 +1,21 @@
 [versions]
-agp = "8.7.2"
-kotlin = "2.0.0"
+agp = "8.7.3"
+kotlin = "2.1.0"
 coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.9.3"
-composeBom = "2024.04.01"
+composeBom = "2024.12.01"
 adaptiveNavigationAndroid = "1.0.0"
-adaptiveNavigationDesktop = "1.0.0"
-adaptiveNavigationJvmstubs = "1.1.0-alpha08"
 material3AdaptiveAndroid = "1.0.0-alpha06"
 roomCompiler = "2.6.1"
 roomKtx = "2.6.1"
 roomRuntime = "2.6.1"
 ksp = "2.1.0-1.0.29"
+navigationRuntimeKtx = "2.8.5"
+navigationCompose = "2.8.5"
 
 [libraries]
 androidx-adaptive = { module = "androidx.compose.material3.adaptive:adaptive" }
@@ -39,9 +39,9 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-adaptive-navigation-android = { group = "androidx.compose.material3.adaptive", name = "adaptive-navigation-android", version.ref = "adaptiveNavigationAndroid" }
-androidx-adaptive-navigation-desktop = { group = "androidx.compose.material3.adaptive", name = "adaptive-navigation-desktop", version.ref = "adaptiveNavigationDesktop" }
-androidx-adaptive-navigation-jvmstubs = { group = "androidx.compose.material3.adaptive", name = "adaptive-navigation-jvmstubs", version.ref = "adaptiveNavigationJvmstubs" }
 androidx-material3-adaptive-android = { group = "androidx.compose.material3", name = "material3-adaptive-android", version.ref = "material3AdaptiveAndroid" }
+androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
