@@ -13,6 +13,6 @@ data class Task (
     val title: String,
     @ColumnInfo(name = "description")
     val description: String,
-    @ColumnInfo(name = "due_date")
-    val dueDate: LocalDate? = null
+//    @ColumnInfo(name = "due_date")
+//    val dueDate: LocalDate? = null
 )

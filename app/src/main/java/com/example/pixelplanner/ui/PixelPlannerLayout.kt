@@ -19,7 +19,7 @@ fun AppLayout(
 ) {
     val navigator = rememberListDetailPaneScaffoldNavigator<Nothing>()
     val taskList = taskListViewModel.tasks
-    val taskItem by taskListViewModel.selectedTask.collectAsState()
+    val taskItem by taskListViewModel.task.collectAsState()
 
     BackHandler(navigator.canNavigateBack()) {
         navigator.navigateBack()

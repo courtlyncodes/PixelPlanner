@@ -1,4 +1,4 @@
-package com.example.pixelplanner.ui.taskaddedit
+package com.example.pixelplanner.ui.taskupsert
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,7 +20,7 @@ import com.example.pixelplanner.R
 import com.example.pixelplanner.ui.theme.PixelPlannerTheme
 
 @Composable
-fun TaskAddEditPane() {
+fun TaskUpsertPane() {
     Scaffold(
         topBar = {
             Text(text = stringResource(R.string.task_details))
@@ -57,6 +57,6 @@ fun TaskAddEditPane() {
 @Composable
 fun TaskDetailPanePreview() {
     PixelPlannerTheme {
-        TaskAddEditPane()
+        TaskUpsertPane()
     }
 }
