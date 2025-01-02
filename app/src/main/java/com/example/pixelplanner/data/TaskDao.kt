@@ -11,18 +11,42 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TaskDao {
+    /**
+     *  Observes list of tasks.
+     *
+     *  @return all tasks in the database.
+     */
     @Query("SELECT * FROM tasks")
-    fun getAllTasks(): List<TaskItem>
+    fun observeAllTasks(): Flow<List<TaskItem>>
 
+    /**
+     *  Selects a single task.
+     *
+     *  @param id the id of the task.
+     *  @return the task with the given id.
+     */
     @Query("SELECT * FROM tasks WHERE id = :id")
     fun getById(id: Long): Flow<TaskItem?>
 
+    /**
+     *  Adds a task to the database.
+     *
+     *  @param task the task to add.
+     */
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addTask(task: TaskItem)
 
+    /**
+     *  Updates a task in the database.
+     *
+     *  @param task the task to update.
+     */
     @Update
     suspend fun updateTask(task: TaskItem)
 
+    /**
+     * Deletes a task from the database.
+     */
     @Delete
-    suspend fun deleteTask(task: TaskItem)
+    suspend fun deleteById(task: TaskItem)
 }
