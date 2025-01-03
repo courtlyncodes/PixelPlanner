@@ -36,7 +36,7 @@ fun PixelPlannerNavGraph(
             }
             )
         ) {
-            TaskUpsertPane()
+            TaskUpsertPane(onSaveClick = { navController.navigateUp() })
 
         }
 

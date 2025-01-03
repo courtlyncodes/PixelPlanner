@@ -6,19 +6,15 @@ import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffold
 import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffoldRole
 import androidx.compose.material3.adaptive.navigation.rememberListDetailPaneScaffoldNavigator
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import com.example.pixelplanner.ui.taskdetail.TaskDetailCard
+import com.example.pixelplanner.ui.taskdetail.TaskDetailPane
 import com.example.pixelplanner.ui.tasklist.TaskListPane
-import com.example.pixelplanner.ui.tasklist.TaskListViewModel
 
 @OptIn(ExperimentalMaterial3AdaptiveApi::class)
 @Composable
 fun AppLayout(
-    taskListViewModel: TaskListViewModel
+    onAddNewClick: () -> Unit
 ) {
     val navigator = rememberListDetailPaneScaffoldNavigator<Nothing>()
-    val taskItem by taskListViewModel.task.collectAsState()
 
     BackHandler(navigator.canNavigateBack()) {
         navigator.navigateBack()
@@ -28,10 +24,10 @@ fun AppLayout(
         value = navigator.scaffoldValue,
         listPane = {
             TaskListPane(
-                onAddNewClick = { },
+                onAddNewClick = { onAddNewClick() },
                 onItemClick = { navigator.navigateTo(ListDetailPaneScaffoldRole.Detail) }
             )
         },
-        detailPane = { taskItem?.let { TaskDetailCard(task = it) } }
+        detailPane = { TaskDetailPane() }
     )
 }

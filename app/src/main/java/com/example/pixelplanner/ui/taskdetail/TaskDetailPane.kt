@@ -10,6 +10,7 @@ import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -17,10 +18,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.pixelplanner.model.Task
+import com.example.pixelplanner.ui.AppViewModelProvider
+import com.example.pixelplanner.ui.tasklist.TaskListViewModel
 
 @Composable
-fun TaskDetailCard(task: Task, modifier: Modifier = Modifier) {
+fun TaskDetailPane(
+    modifier: Modifier = Modifier,
+    viewModel: TaskListViewModel = viewModel(factory = AppViewModelProvider.Factory)
+) {
+    val task = viewModel.task.collectAsState().value
     ElevatedCard(
         modifier = modifier,
         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.surfaceVariant)
@@ -31,8 +39,12 @@ fun TaskDetailCard(task: Task, modifier: Modifier = Modifier) {
                 Checkbox(checked = checked, onCheckedChange = { checked = it })
             }
             Column(modifier = Modifier.padding(16.dp)) {
-                Text(task.title)
-                Text(task.description)
+                if (task != null) {
+                    Text(task.title)
+                }
+                if (task != null) {
+                    Text(task.description)
+                }
             }
 //            Column(){
 //                Text(toDoItem.dueDate)

@@ -35,11 +35,13 @@ class TaskUpsertViewModel(
     // Initialize the ViewModel to get a note by its ID
     init {
         viewModelScope.launch {
-            taskRepository.getTaskStream(taskId!!)
-                .filterNotNull()
-                .collect { task ->
-                    _task.value = TaskUpsertUiState(task)
-                }
+            if (taskId != null) {
+                taskRepository.getTaskStream(taskId)
+                    .filterNotNull()
+                    .collect { task ->
+                        _task.value = TaskUpsertUiState(task)
+                    }
+            }
         }
     }
 
