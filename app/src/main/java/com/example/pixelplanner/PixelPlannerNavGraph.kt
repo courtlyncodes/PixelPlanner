@@ -25,14 +25,12 @@ fun PixelPlannerNavGraph(
         composable(TaskListDestination.route) {
             AppLayout(
                 onAddNewClick = { navController.navigate(TaskUpsertDestination.route) },
-                onEditClick = { task ->
-                    navController.navigate("${TaskUpsertDestination.route}/${task.id}")
-                }
+                onEditClick = { navController.navigate("${TaskUpsertDestination.route}/${it.id}") }
             )
         }
-        composable(TaskUpsertDestination.routeWithoutArgs) {
-            TaskUpsertPane(onSaveClick = { navController.navigateUp() })
-        }
+//        composable(TaskUpsertDestination.routeWithoutArgs) {
+//            TaskUpsertPane(onSaveClick = { navController.navigateUp() })
+//        }
         composable(
             TaskUpsertDestination.routeWithArgs,
             arguments = listOf(navArgument(TaskUpsertDestination.TASK_ID_ARG) {

@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import androidx.room.Update
 import androidx.room.Upsert
 import com.example.pixelplanner.model.Task
@@ -42,4 +43,16 @@ interface TaskDao {
      */
     @Delete
     suspend fun deleteById(task: Task)
+
+    @Query("DELETE FROM tasks")
+    suspend fun clearTable()
+
+    @Query("DELETE FROM sqlite_sequence WHERE name = 'tasks'")
+    suspend fun resetPrimaryKey()
+
+    @Transaction
+    suspend fun resetTable() {
+        clearTable()
+        resetPrimaryKey()
+    }
 }

@@ -19,10 +19,11 @@ import com.example.pixelplanner.ui.tasklist.TaskListViewModel
 fun AppLayout(
     onAddNewClick: () -> Unit,
     onEditClick: (Task) -> Unit,
-    viewModel: TaskListViewModel = viewModel(factory = AppViewModelProvider.Factory)
+    taskListViewModel: TaskListViewModel = viewModel(factory = AppViewModelProvider.Factory),
 ) {
-    val navigator = rememberListDetailPaneScaffoldNavigator<Nothing>()
-    val tasks by viewModel.taskList.collectAsState()
+    val navigator = rememberListDetailPaneScaffoldNavigator<Task>()
+    val tasks by taskListViewModel.taskList.collectAsState()
+    val task by taskListViewModel.task.collectAsState()
 
     BackHandler(navigator.canNavigateBack()) {
         navigator.navigateBack()
@@ -34,9 +35,20 @@ fun AppLayout(
             TaskListPane(
                 tasks = tasks.tasks,
                 onAddNewClick = { onAddNewClick() },
-                onItemClick = { navigator.navigateTo(ListDetailPaneScaffoldRole.Detail) }
+                onItemClick = { task ->
+                    navigator.navigateTo(ListDetailPaneScaffoldRole.Detail)
+                    taskListViewModel.selectTask(task)
+                }
             )
         },
-        detailPane = { TaskDetailPane(onEditClick = { onEditClick(it) }) }
+        detailPane = {
+            task?.let { it ->
+                TaskDetailPane(
+                    task = it,
+                    onEditClick = { onEditClick(it) },
+                    navigateUp = { navigator.navigateTo(ListDetailPaneScaffoldRole.List) }
+                )
+            }
+        }
     )
 }

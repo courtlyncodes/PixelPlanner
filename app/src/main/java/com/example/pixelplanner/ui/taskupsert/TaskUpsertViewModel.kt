@@ -45,17 +45,9 @@ class TaskUpsertViewModel(
         }
     }
 
-    private fun updateTask(task: Task) {
-        try {
-            _task.update { it.copy(task = task) }
-        } catch (e: Exception) {
-            Log.e(TAG, "Error updating task: ${e.message}")
-        }
-    }
-
     fun upsertTaskTitle(title: String) {
         try {
-            updateTask(_task.value.task.copy(title = title))
+            updateTask(task.value.task.copy(title = title))
             viewModelScope.launch {
                 taskRepository.upsertTask(task.value.task.copy(title = title))
             }
@@ -66,7 +58,7 @@ class TaskUpsertViewModel(
 
     fun upsertTaskDescription(description: String) {
         try {
-            updateTask(_task.value.task.copy(description = description))
+            updateTask(task.value.task.copy(description = description))
             viewModelScope.launch {
                 taskRepository.upsertTask(task.value.task.copy(description = description))
             }
@@ -85,6 +77,13 @@ class TaskUpsertViewModel(
         }
     }
 
+    private fun updateTask(task: Task) {
+        try {
+            _task.update { it.copy(task = task) }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error updating task: ${e.message}")
+        }
+    }
     companion object {
         private const val TAG = "TaskUpsertViewModel"
     }

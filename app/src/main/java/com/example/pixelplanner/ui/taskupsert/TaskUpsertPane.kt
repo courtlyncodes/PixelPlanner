@@ -46,7 +46,7 @@ fun TaskUpsertPane(
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
                     .padding(16.dp),
-                value = "hello",
+                value = task.value.task.title,
                 onValueChange = { viewModel.upsertTaskTitle(it) },
 
             )
@@ -54,7 +54,7 @@ fun TaskUpsertPane(
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
                     .padding(16.dp),
-                value = "yo",
+                value = task.value.task.description,
                 onValueChange = { viewModel.upsertTaskDescription(it) }
             )
         }

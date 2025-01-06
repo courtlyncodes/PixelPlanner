@@ -85,7 +85,7 @@ fun TaskCard(
                 Checkbox(checked = checked, onCheckedChange = { checked = it })
             }
             Column(modifier = Modifier.padding(16.dp)) {
-                Text("ayooo")
+                Text(task.title)
                 Text(task.description)
             }
         }

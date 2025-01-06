@@ -29,15 +29,20 @@ class TaskListViewModel(private val taskRepository: TaskRepository): ViewModel()
                 initialValue = TaskListUiState()
             )
 
-    fun deleteTask(task: Task) {
+    fun deleteTask() {
         try {
             viewModelScope.launch {
-                taskRepository.deleteTask(task)
+                taskRepository.deleteTask(_task.value!!)
             }
         } catch (e: Exception) {
             Log.e(TAG, "Error deleting task: ${e.message}")
         }
     }
+
+    fun selectTask(task: Task) {
+        _task.value = task
+    }
+
 
     companion object {
         private const val TAG = "TaskListViewModel"

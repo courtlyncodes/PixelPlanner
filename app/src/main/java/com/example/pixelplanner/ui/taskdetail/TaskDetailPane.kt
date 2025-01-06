@@ -1,5 +1,6 @@
 package com.example.pixelplanner.ui.taskdetail
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -29,18 +30,19 @@ import com.example.pixelplanner.ui.tasklist.TaskListViewModel
 
 @Composable
 fun TaskDetailPane(
+    task: Task,
     onEditClick: (Task) -> Unit,
+    navigateUp: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: TaskListViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
-    val task = viewModel.task.collectAsState().value
 
     Scaffold(
         topBar = {
-            Text(text = task?.title ?: "")
+            Text(text = task.title ?: "")
         }
-    ) {
-        Column(modifier = modifier.padding(it)) {
+    ) { paddingValues ->
+        Column(modifier = modifier.padding(paddingValues)) {
             ElevatedCard(
                 modifier = modifier,
                 colors = CardDefaults.cardColors(MaterialTheme.colorScheme.surfaceVariant)
@@ -54,13 +56,10 @@ fun TaskDetailPane(
                     Column {
                         Checkbox(checked = checked, onCheckedChange = { checked = it })
                     }
+                    Log.d("TaskDetailPane", "Task title: ${task.title}")
                     Column(modifier = Modifier.padding(16.dp)) {
-                        if (task != null) {
-                            Text(task.title)
-                        }
-                        if (task != null) {
-                            Text(task.description)
-                        }
+                        Text(task.title)
+                        Text(task.description)
                     }
 //            Column(){
 //                Text(toDoItem.dueDate)
@@ -68,13 +67,15 @@ fun TaskDetailPane(
                 }
             }
             Row {
-                Button(onClick = { viewModel.deleteTask(task!!) }) {
+                Button(onClick = {
+                    viewModel.deleteTask()
+                    navigateUp()
+                }
+                ) {
                     Text(text = stringResource(R.string.delete))
                 }
                 Button(onClick = {
-                    if (task != null) {
-                        onEditClick(task)
-                    }
+                    onEditClick(task)
                 }) {
                     Text(text = stringResource(R.string.edit))
                 }
