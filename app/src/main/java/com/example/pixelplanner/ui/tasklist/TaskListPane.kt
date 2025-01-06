@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -35,15 +36,15 @@ import com.example.pixelplanner.ui.theme.PixelPlannerTheme
 
 @Composable
 fun TaskListPane(
+    tasks: List<Task>,
     onAddNewClick: () -> Unit,
     onItemClick: (Task) -> Unit,
-    modifier: Modifier = Modifier,
-    viewModel: TaskListViewModel = viewModel(factory = AppViewModelProvider.Factory)
+    modifier: Modifier = Modifier
 ) {
-    val tasks = viewModel.taskList.collectAsState().value.tasks
+
     Scaffold(
         topBar = {
-            Text(text = "To-Do List")
+            Text(text = stringResource(R.string.to_do_list))
         },
         floatingActionButton = {
             FloatingActionButton(
@@ -57,11 +58,11 @@ fun TaskListPane(
             }
         }
     ) {
-        Column(modifier = modifier
+        LazyColumn(modifier = modifier
             .padding(it)
             .padding(16.dp)) {
-            tasks.forEach { task ->
-                TaskCard(task, onItemClick = { onItemClick(task) })
+            items(tasks.size) { index ->
+                TaskCard(task = tasks[index], onItemClick = { task -> onItemClick(task) })
             }
         }
     }
@@ -84,32 +85,32 @@ fun TaskCard(
                 Checkbox(checked = checked, onCheckedChange = { checked = it })
             }
             Column(modifier = Modifier.padding(16.dp)) {
-                Text(task.title)
+                Text("ayooo")
                 Text(task.description)
             }
         }
     }
 }
 
-@Preview
-@Composable
-fun ToDoListPreview() {
-    PixelPlannerTheme {
-        val task = Task(1, "Title", "Description")
-        val tasks = listOf(
-            Task(1, "Title", "Description"),
-            Task(2, "Title", "Description"),
-            Task(3, "Title", "Description")
-        )
-        TaskListPane(onAddNewClick = {}, onItemClick = {})
-    }
-}
-
-@Preview
-@Composable
-fun ToDoItemCardPreview() {
-    PixelPlannerTheme {
-        val task = Task(1, "Title", "Description")
-        TaskCard(task, onItemClick = {})
-    }
-}
+//@Preview
+//@Composable
+//fun ToDoListPreview() {
+//    PixelPlannerTheme {
+//        val task = Task(1, "Title", "Description")
+//        val tasks = listOf(
+//            Task(1, "Title", "Description"),
+//            Task(2, "Title", "Description"),
+//            Task(3, "Title", "Description")
+//        )
+//        TaskListPane(onAddNewClick = {}, onItemClick = {})
+//    }
+//}
+//
+//@Preview
+//@Composable
+//fun ToDoItemCardPreview() {
+//    PixelPlannerTheme {
+//        val task = Task(1, "Title", "Description")
+//        TaskCard(task, onItemClick = {})
+//    }
+//}

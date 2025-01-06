@@ -31,10 +31,7 @@ fun TaskUpsertPane(
     val task = viewModel.task.collectAsState()
 
     Scaffold(
-        topBar = {
-            Text(text = stringResource(R.string.task_details))
-        },
-        floatingActionButton = {
+                floatingActionButton = {
             Button(colors = ButtonColors(MaterialTheme.colorScheme.primaryContainer, MaterialTheme.colorScheme.onPrimary, MaterialTheme.colorScheme.secondaryContainer, MaterialTheme.colorScheme.onSecondaryContainer), onClick = { onSaveClick() }) {
                 Text(text = stringResource(R.string.save))
             }
@@ -49,9 +46,7 @@ fun TaskUpsertPane(
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
                     .padding(16.dp),
-                value = task.value.task.title.ifEmpty {
-                    stringResource(R.string.task_title)
-                },
+                value = "hello",
                 onValueChange = { viewModel.upsertTaskTitle(it) },
 
             )
@@ -59,7 +54,7 @@ fun TaskUpsertPane(
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
                     .padding(16.dp),
-                value = task.value.task.description.ifEmpty {stringResource(R.string.task_description) },
+                value = "yo",
                 onValueChange = { viewModel.upsertTaskDescription(it) }
             )
         }

@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.pixelplanner.ui.AppLayout
 import com.example.pixelplanner.ui.tasklist.TaskListPane
 import com.example.pixelplanner.ui.taskupsert.TaskUpsertPane
 
@@ -22,12 +23,15 @@ fun PixelPlannerNavGraph(
         startDestination = startDestination
     ) {
         composable(TaskListDestination.route) {
-            TaskListPane(
+            AppLayout(
                 onAddNewClick = { navController.navigate(TaskUpsertDestination.route) },
-                onItemClick = { task ->
+                onEditClick = { task ->
                     navController.navigate("${TaskUpsertDestination.route}/${task.id}")
                 }
             )
+        }
+        composable(TaskUpsertDestination.routeWithoutArgs) {
+            TaskUpsertPane(onSaveClick = { navController.navigateUp() })
         }
         composable(
             TaskUpsertDestination.routeWithArgs,

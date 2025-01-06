@@ -5,4 +5,7 @@
     <string name="save">Save</string>
     <string name="task_title">Task Title</string>
     <string name="task_description">Task Description</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="to_do_list">To-Do List</string>
 </resources>
